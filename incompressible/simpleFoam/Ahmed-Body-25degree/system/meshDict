@@ -1,0 +1,168 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                |
+| \\      /  F ield         | cfMesh: A library for mesh generation          | 
+|  \\    /   O peration     |                                                |
+|   \\  /    A nd           | Author: Franjo Juretic                         | 
+|    \\/     M anipulation  | E-mail: franjo.juretic@c-fields.com            |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version   2.0;
+    format    ascii;
+    class     dictionary;
+    location  "system";
+    object    meshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+surfaceFile "joined2.fms";
+
+maxCellSize 100.0;
+
+boundaryCellSize 100.0;
+
+keepCellsIntersectingBoundary  0;
+
+checkForGluedMesh   0;
+
+//minCellSize 5.00;
+
+localRefinement
+{
+//     "inlet.*"
+//     {
+//         additionalRefinementLevels 1;
+//     }
+
+//     "outlet.*"
+//     {
+//         additionalRefinementLevels 1;
+//     }
+    
+    wallGroundMesh
+    {
+        additionalRefinementLevels 2;
+    }
+        
+    wallSide
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallFront
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallSlant
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallLegs
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallUnder
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallBehind
+    {
+        additionalRefinementLevels 4;
+    }
+    
+    wallTop
+    {
+        additionalRefinementLevels 4;
+    }
+    
+//     "slipwall.*"
+//     {
+//         additionalRefinementLevels 1;
+//     }
+    
+}
+
+objectRefinements
+{
+    afterTheBody
+    {
+        type box;
+        cellSize 15;   
+        centre  (200 0 200);
+        lengthX  1000;
+        lengthY  600;
+        lengthZ  400;
+    }
+
+}
+
+keepCellsIntersectingPatches
+{
+}
+
+boundaryLayers
+{
+    
+//     optimiseLayer 1;
+
+//       untangleLayers 0;
+  
+    patchBoundaryLayers
+    {
+        "wall.*"
+        {
+            nLayers  3;
+            
+            thicknessRation 1.1;
+            
+    //         maxFirstLayerThickness 2;
+
+    //         allowDiscontinuity  0;
+          
+        }
+    }
+}
+
+anisotropicSources
+{
+//     boxBefore
+//     {
+//         type box;
+//         centre (-4176 0 0);
+//         lengthX 4176;
+//         lengthY 2328;
+//         lengthZ 2704;
+//         
+//         scaleX 1;
+//         scaleY 1;
+//         scaleZ 1;
+//         
+//     }
+    
+//     boxAfter
+//     {
+//         type box;
+//         centre (3132 0 0);
+//         lengthX 4176;
+//         lengthY 2328;
+//         lengthZ 2704;
+//         
+//         scaleX 1.1;
+//         scaleY 1;
+//         scaleZ 1;
+//         
+//     }
+}
+
+renameBoundary
+{
+}
+               
+     
+// ************************************************************************* //

@@ -1,0 +1,76 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | OpenFOAM (Engys Edition):                                |
+|   o   O   o      | Version: 2.1_engysEdition-1.0                            |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "../system";
+    object      fvSchemes;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+ddtSchemes
+{
+    default         steadyState;
+}
+
+gradSchemes
+{
+    default         Gauss linear;
+    grad(nuTilda)   cellLimited Gauss linear 1;
+    grad(k)         cellMDLimited Gauss linear 1;
+    grad(kl)        cellLimited Gauss linear 1;
+    grad(omega)     cellMDLimited Gauss linear 1;
+    grad(epsilon)   cellMDLimited Gauss linear 1;
+    grad(U)         cellMDLimited Gauss linear 1;
+}
+
+divSchemes
+{
+    default         Gauss linear;
+    div(phi,U)      Gauss upwind;
+    div(phi,k)      Gauss upwind;
+    div(phi,epsilon) Gauss upwind;
+    div(phi,omega)  Gauss upwind;
+    div(phi,nuTilda) Gauss linearUpwind grad(nuTilda);
+    div(phi,T)      Gauss limitedLinear 1;
+    div(phi,kl)     Gauss limitedLinear 1;
+    div(phi,R)      Gauss upwind;
+    div(R)          Gauss linear;
+    div((nuEff*dev(grad(U).T()))) Gauss linear;
+    div((nuEff*dev(T(grad(U))))) Gauss linear;
+}
+
+interpolationSchemes
+{
+    default         linear;
+    interpolate(HbyA) linear;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear limited 0.5;
+    laplacian(DomegaEff,omega) Gauss linear limited 0.5;
+    laplacian(DepsilonEff,epsilon) Gauss linear limited 0.5;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    p               ;
+    pcorr           ;
+}
+
+
+// ************************************************************************* //
