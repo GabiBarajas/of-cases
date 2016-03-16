@@ -23,14 +23,14 @@ boundaryField
 {
     inlet
     {
-        type            fixedValue;
-        value           $internalField;
+        type            turbulentIntensityKineticEnergyInlet;
+        intensity       0.02;
+        value           uniform 0.24;
     }
 
     outlet
     {
-        type            inletOutlet;
-        inletValue      $internalField;
+        type            zeroGradient;
     }
 
     symmetry

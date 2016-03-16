@@ -17,20 +17,20 @@ FoamFile
 
 dimensions      [ 0 0 -1 0 0 0 0 ];
 
-internalField   uniform 1e-5;
+internalField   uniform 10;
 
 boundaryField
 {
     inlet
     {
         type           fixedValue;
-        value          $internalField;
+        value          uniform 10;
     }
     outlet
     {
        type            inletOutlet;
-       inletValue      $internalField;
-       value           $internalField;
+       inletValue      uniform 10;
+       value           uniform 10;
     }
     
     symmetry
@@ -46,13 +46,13 @@ boundaryField
     wallAhmed
     {
         type           omegaWallFunction;
-        value          $internalField;
+        value          uniform 10;
     }
     
     wallGround
     {
         type           omegaWallFunction;
-        value          $internalField;
+        value          uniform 10;
     }
 }
 

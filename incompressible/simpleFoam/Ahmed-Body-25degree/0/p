@@ -28,7 +28,7 @@ boundaryField
     outlet
     {
         type            fixedValue;
-        value           $internalField;
+        value           uniform 0;
     }
     
     symmetry

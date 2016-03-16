@@ -22,15 +22,15 @@ boundaryField
 {
     inlet
     {
-        type  fixedValue;
-        value $internalField;
+        type            fixedValue;
+        value           uniform (40 0 0);
     }
 
     outlet
     {
         type            inletOutlet;
-        inletValue      uniform (0 0 0);
-        value           $internalField;
+        inletValue      uniform (40 0 0);
+        value           uniform (40 0 0);
     }
     
     symmetry
