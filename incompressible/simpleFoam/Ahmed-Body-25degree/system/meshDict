@@ -19,9 +19,9 @@ FoamFile
 
 surfaceFile "joined2.fms";
 
-maxCellSize 100.0;
+maxCellSize 70.0;
 
-boundaryCellSize 100.0;
+boundaryCellSize 50.0;
 
 keepCellsIntersectingBoundary  0;
 
