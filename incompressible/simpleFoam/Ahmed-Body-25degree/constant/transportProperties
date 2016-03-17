@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
-|       o          |                                                          |
-|    o     o       | OpenFOAM (Engys Edition):                                |
-|   o   O   o      | Version: 2.2-engysEdition-beta                           |
-|    o     o       | Web:     http://www.engys.com                            |
-|       o          |                                                          |
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
