@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
-|       o          |                                                          |
-|    o     o       | OpenFOAM (Engys Edition):                                |
-|   o   O   o      | Version: 2.1_engysEdition-1.0                            |
-|    o     o       | Web:     http://www.engys.com                            |
-|       o          |                                                          |
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
@@ -134,7 +134,7 @@ relaxationFactors
     }
     equations
     {
-        U               0.7;
+        U               0.8;
         h               0.5;
         T               0.7;
         k               0.7;

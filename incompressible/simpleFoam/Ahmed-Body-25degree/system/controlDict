@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
-|       o          |                                                          |
-|    o     o       | OpenFOAM (Engys Edition):                                |
-|   o   O   o      | Version: 2.1_engysEdition-1.0                            |
-|    o     o       | Web:     http://www.engys.com                            |
-|       o          |                                                          |
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
@@ -75,7 +75,7 @@ functions
         pitchAxis (0.25 0 0);
         magUInf 40.0;
         lRef 1.044;
-        Aref 0.122;
+        Aref 0.115320;
                 outputControl timeStep;
                 outputInterval 1;
     }

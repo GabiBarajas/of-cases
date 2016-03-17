@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
-|       o          |                                                          |
-|    o     o       | OpenFOAM (Engys Edition):                                |
-|   o   O   o      | Version: 2.1_engysEdition-1.0                            |
-|    o     o       | Web:     http://www.engys.com                            |
-|       o          |                                                          |
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
@@ -24,16 +24,16 @@ gradSchemes
 {
     default         Gauss linear;
     grad(p)         Gauss linear;
-    grad(U)         Gauss linear;;
+    grad(U)         cellLimited Gauss linear 1;
 }
 
 divSchemes
 {
     default         none;
-    div(phi,U)      Gauss upwind; //vanLeer;
-    div(phi,k)      Gauss upwind; //vanLeer;
-    div(phi,omega) Gauss upwind; //vanLeer;
-    div((nuEff*dev(T(grad(U))))) Gauss linear; //vanLeer;
+    div(phi,U)      bounded Gauss linearUpwind unlimited;//bounded Gauss GammaV 0.2; //vanLeer;
+    div(phi,k)      bounded Gauss linearUpwind limited;//bounded Gauss upwind;//vanLeer;
+    div(phi,omega)  bounded Gauss linearUpwind limited;//bounded Gauss upwind;//vanLeer;
+    div((nuEff*dev2(T(grad(U))))) Gauss linear; //vanLeer;
 }
 
 interpolationSchemes
@@ -44,12 +44,12 @@ interpolationSchemes
 
 laplacianSchemes
 {
-    default         Gauss linear corrected;
+    default         Gauss linear limited 0.333;
 }
 
 snGradSchemes
 {
-    default         corrected;
+    default         limited 0.333;
 }
 
 fluxRequired
@@ -57,6 +57,9 @@ fluxRequired
     default         no;
     p;
 }
-
+wallDist
+{
+    method meshWave;
+}
 
 // ************************************************************************* //
