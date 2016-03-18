@@ -1,0 +1,86 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "../system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+startFrom       latestTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         3000;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   100;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  8;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+graphFormat     raw;
+
+runTimeModifiable yes;
+
+libs            ( "" );
+
+application     simpleFoam;
+
+functions       
+(
+    forces
+    {
+        type forces;
+        functionObjectLibs ("libforces.so"); //Lib to load
+        patches (wallAhmed); // change to your patch name
+                rhoName rhoInf;
+        rhoInf 1.225; //Reference density for fluid
+        CofR ( 0.522 0 0.194 );; //Origin for moment calculations
+                outputControl timeStep;
+                outputInterval 1;
+    }
+    forceCoeffs
+    {
+        type forceCoeffs;
+        functionObjectLibs ("libforces.so");
+        patches (wallAhmed); //change to your patch name
+                rhoName rhoInf;
+        rhoInf 1.225;
+        CofR ( 0.522 0 0.194 );
+        liftDir (0 0 1);
+        dragDir (1 0 0);
+        pitchAxis (0.25 0 0);
+        magUInf 40.0;
+        lRef 1.044;
+        Aref 0.115320;
+                outputControl timeStep;
+                outputInterval 1;
+    }
+)
+;
+
+
+// ************************************************************************* //

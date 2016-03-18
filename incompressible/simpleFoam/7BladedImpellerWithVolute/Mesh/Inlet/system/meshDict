@@ -1,0 +1,104 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                |
+| \\      /  F ield         | cfMesh: A library for mesh generation          | 
+|  \\    /   O peration     |                                                |
+|   \\  /    A nd           | Author: Franjo Juretic                         | 
+|    \\/     M anipulation  | E-mail: franjo.juretic@c-fields.com            |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version   2.0;
+    format    ascii;
+    class     dictionary;
+    location  "system";
+    object    meshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+surfaceFile "joined2.fms";
+
+maxCellSize 2.0;
+
+boundaryCellSize 1.0;
+
+keepCellsIntersectingBoundary  0;
+
+checkForGluedMesh   0;
+
+//minCellSize 5.00;
+
+localRefinement
+{ 
+    "wall.*"
+    {
+        additionalRefinementLevels 2;
+    }
+        
+    "ami.*"
+    {
+        additionalRefinementLevels 2;
+    }
+    
+    "inlet.*"
+    {
+        additionalRefinementLevels 2;
+    }
+    
+}
+
+objectRefinements
+{
+
+}
+
+keepCellsIntersectingPatches
+{
+}
+
+boundaryLayers
+{
+    
+//     optimiseLayer 1;
+
+//       untangleLayers 0;
+  
+    patchBoundaryLayers
+    {
+        "wall.*"
+        {
+            nLayers  2;
+            
+            thicknessRatio 1.1;
+            
+    //         maxFirstLayerThickness 2;
+
+    //         allowDiscontinuity  0;
+          
+        }
+        "rotating.*"
+        {
+            nLayers  2;
+            
+            thicknessRatio 1.1;
+            
+    //         maxFirstLayerThickness 2;
+
+    //         allowDiscontinuity  0;
+          
+        }
+    }
+}
+
+anisotropicSources
+{
+
+}
+
+renameBoundary
+{
+}
+               
+     
+// ************************************************************************* //
