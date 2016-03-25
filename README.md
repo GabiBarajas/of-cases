@@ -1,2 +1,2 @@
 # openfoam-cases
-Varoius cases for openfoam
+Various cases for openfoam
