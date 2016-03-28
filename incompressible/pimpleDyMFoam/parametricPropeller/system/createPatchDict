@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Do a synchronisation of coupled points after creation of any patches.
+// Note: this does not work with points that are on multiple coupled patches
+//       with transformations (i.e. cyclics).
+pointSync false;
+
+// Patches to create.
+patches
+(
+    {
+        //- Master side patch
+        name            amiPropToDomain;
+        patchInfo
+        {
+            type            cyclicAMI;
+            matchTolerance  0.0001;
+            neighbourPatch  amiDomainToProp;
+            transform       noOrdering;
+        }
+        constructFrom patches;
+        patches (amiPropellerMesh);
+    }
+
+    {
+        //- Slave side patch
+        name            amiDomainToProp;
+        patchInfo
+        {
+            type            cyclicAMI;
+            matchTolerance  0.0001;
+            neighbourPatch  amiPropToDomain;
+            transform       noOrdering;
+        }
+        constructFrom patches;
+        patches (amiDomainMesh);
+    }
+
+    {
+        name inlet;
+        patchInfo
+        {
+            type            patch;
+        }
+        constructFrom patches;
+        patches (inletMesh);
+    }
+    {
+        name outlet;
+        patchInfo
+        {
+            type            patch;
+        }
+        constructFrom patches;
+        patches (outletMesh);
+    }
+    {
+        name rotatingWalls;
+        patchInfo
+        {
+            type            wall;
+        }
+        constructFrom patches;
+        patches ("rotatingWall.*");
+    }
+    {
+        name slipWalls;
+        patchInfo
+        {
+            type            patch;
+        }
+        constructFrom patches;
+        patches ("slip.*");
+    }
+    
+);
+
+// ************************************************************************* //

@@ -1,0 +1,41 @@
+#!/bin/sh
+#SOURCE cfmesh for this script
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# ---- CAD GENERATION ---- #
+
+cd Mesh
+
+$HOME/salome/appli_V7_7_1/runAppli SalomeGeometry.py -t --shutdown-servers=1
+
+# ---- PROPELLER MESH GENERATION ---- #
+
+cd Propeller
+
+sh gmshToStl.sh
+
+runApplication surfaceToFMS joined.stl
+
+rm joined.stl
+
+runApplication surfaceFeatureEdges -angle 80 joined.fms joined2.fms
+
+runApplication cartesianMesh
+
+# ---- DOMAIN MESH GENERATION ---- #
+
+cd ../Domain
+
+sh gmshToStl.sh
+
+runApplication surfaceToFMS joined.stl
+
+rm joined.stl
+
+runApplication surfaceFeatureEdges -angle 80 joined.fms joined2.fms
+
+runApplication cartesianMesh
+
+

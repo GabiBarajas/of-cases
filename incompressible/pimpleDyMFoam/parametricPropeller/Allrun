@@ -1,0 +1,15 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+#./Allrun.msh #--- > run with cfmesh
+
+#./Allrun.pre #--- > run with OF-dev
+
+runApplication decomposePar
+
+runParallel `getApplication`
+
+runApplication reconstructPar
