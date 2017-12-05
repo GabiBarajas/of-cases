@@ -209,15 +209,15 @@ def main():
     profileCurve = makeCurveFromPoints(profilePoints)
     
     nBlades = 4 # Enter blade numbers [integer]
-    hubRadius = 100 # radius if the hub [mm]
-    hubFillet = 75 # fullet radius on the hub cylinder [mm]
+    hubRadius = 100 # radius of the hub [mm]
+    hubFillet = 75 # fillet radius on the hub cylinder [mm]
     propRadius = 500 # final propeller radius [mm]
     hubLength = 300 # length of the hub [mm]
     coordLengthAtHub = 100 # the coord length at the hub [mm], the scaling is based on this length
     
-    skewAngleList = [[0,0],[0.5,0],[1,20]] # these points are used to control the skewAngle [deg] you can add more but x values have to be accending order from 0-1
-    pitchAngleList = [[0,40],[0.2,20],[1,10]] # these points are used to control the pitchAngle [deg] you can add more but x values have to be accending order from 0-1
-    coordLengthScaleList = [[0,1],[0.5,2],[1,0.8]] # these points are used to control the coord scaling [float] you can add more but x values have to be accending order from 0-1
+    skewAngleList = [[0,0],[0.5,0],[1,20]] # these points are used to control the skewAngle [deg] you can add more but x values have to be in accending order from 0-1
+    pitchAngleList = [[0,40],[0.2,20],[1,10]] # these points are used to control the pitchAngle [deg] you can add more but x values have to be in accending order from 0-1
+    coordLengthScaleList = [[0,1],[0.5,2],[1,0.8]] # these points are used to control the coord scaling [float] you can add more but x values have to be in accending order from 0-1
     
     skewControlLine = makeCurveFromPoints(skewAngleList)
     pitchControlLine = makeCurveFromPoints(pitchAngleList)
