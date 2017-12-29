@@ -1,0 +1,339 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+convertToMeters 0.001;
+
+vertices
+(
+    name v1 (0 10 0)     
+    name v2 (20 10 0)
+    name v3 (20 50 0)
+    name v4 (0 50 0)
+
+    name v5 (0 10 70)
+    name v6 (20 10 70)
+    name v7 (20 50 70)
+    name v8 (0 50 70)
+    
+    name v9 (0 10 80)
+    name v10 (20 10 80)
+    name v11 (20 50 80)
+    name v12 (0 50 80)
+    
+    name v13 (0 10 150)
+    name v14 (20 10 150)
+    name v15 (20 50 150)
+    name v16 (0 50 150)
+    
+    name v17 (50 10 0)
+    name v18 (50 50 0)
+    name v19 (50 10 70)
+    name v20 (50 50 70)
+    
+    name v21 (50 10 80)
+    name v22 (50 50 80)
+    name v23 (50 10 150)
+    name v24 (50 50 150)
+    
+    name v25 (250 10 0)
+    name v26 (250 50 0)
+    name v27 (250 10 70)
+    name v28 (250 50 70)
+    
+    name v29 (250 10 80)
+    name v30 (250 50 80)
+    name v31 (250 10 150)
+    name v32 (250 50 150)
+    
+    name v33 (280 10 0)
+    name v34 (280 50 0)
+    name v35 (280 10 70)
+    name v36 (280 50 70)
+    
+    name v37 (280 10 80)
+    name v38 (280 50 80)
+    name v39 (280 10 150)
+    name v40 (280 50 150)
+    
+    name v41 (300 10 0)
+    name v42 (300 50 0)
+    name v43 (300 10 70)
+    name v44 (300 50 70)
+    
+    name v45 (300 10 80)
+    name v46 (300 50 80)
+    name v47 (300 10 150)
+    name v48 (300 50 150)
+    
+    name v49 (0 350 80)
+    name v50 (20 350 80)
+    name v51 (0 350 70)
+    name v52 (20 350 70)
+    
+    name v53 (280 350 80)
+    name v54 (300 350 80)
+    name v55 (280 350 70)
+    name v56 (300 350 70)
+
+);
+
+blocks
+(
+    //---- Inlet Row 1 ----//
+    hex (v1 v2 v3 v4 v5 v6 v7 v8)         (10 20 30) 
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.3 1)
+		      (0.5 0.7 0.25)
+		   )
+		  )
+    hex (v5 v6 v7 v8 v9 v10 v11 v12)      (10 20 10) simpleGrading (1 4 1)
+    hex (v9 v10 v11 v12 v13 v14 v15 v16)  (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.7 4)
+		      (0.5 0.3 1)
+		   )
+		  )
+    //---------------------//
+    //---- Inlet Row 2 ----//
+    hex (v2 v17 v18 v3 v6 v19 v20 v7)     (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.3 1)
+		      (0.5 0.7 0.25)
+		   )
+		  )
+    hex (v6 v19 v20 v7 v10 v21 v22 v11)   (10 20 10) simpleGrading (1 4 1)
+    hex (v10 v21 v22 v11 v14 v23 v24 v15) (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.7 4)
+		      (0.5 0.3 1)
+		   )
+		  )
+    //---------------------//
+    //---- Middle Row ----//
+    hex (v17 v25 v26 v18 v19 v27 v28 v20) (50 20 30)
+    simpleGrading (
+		   (
+		      (0.25 0.4 4)
+		      (0.5 0.2 1)
+		      (0.25 0.4 0.25)
+		   )
+		   4
+		   (
+		      (0.5 0.3 1)
+		      (0.5 0.7 0.25)
+		   )
+		  )
+    hex (v21 v29 v30 v22 v23 v31 v32 v24) (50 20 30)
+    simpleGrading (
+		   (
+		      (0.25 0.4 4)
+		      (0.5 0.2 1)
+		      (0.25 0.4 0.25)
+		   )
+		   4
+		   (
+		      (0.5 0.7 4)
+		      (0.5 0.3 1)
+		   )
+		  )
+    
+    //---------------------//
+    //---- Outlet Row 1 ----//
+    hex (v25 v33 v34 v26 v27 v35 v36 v28) (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.3 1)
+		      (0.5 0.7 0.25)
+		   )
+		  )
+    hex (v27 v35 v36 v28 v29 v37 v38 v30) (10 20 10) simpleGrading (1 4 1)
+    hex (v29 v37 v38 v30 v31 v39 v40 v32) (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.7 4)
+		      (0.5 0.3 1)
+		   )
+		  )
+    
+    //---------------------//
+    //---- Outlet Row 2 ----//
+    hex (v33 v41 v42 v34 v35 v43 v44 v36) (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.3 1)
+		      (0.5 0.7 0.25)
+		   )
+		  )
+    hex (v35 v43 v44 v36 v37 v45 v46 v38) (10 20 10) simpleGrading (1 4 1)
+    hex (v37 v45 v46 v38 v39 v47 v48 v40) (10 20 30)
+    simpleGrading (1
+		   4
+		   (
+		      (0.5 0.7 4)
+		      (0.5 0.3 1)
+		   )
+		  )
+    
+    //---------------------//
+    //---- Inlet Block ----//
+    hex (v8 v7 v52 v51 v12 v11 v50 v49)   (10 100 10) simpleGrading (1 10 1)
+    
+    //---------------------//
+    //---- Outlet Block ----//
+    hex (v36 v44 v56 v55 v38 v46 v54 v53) (10 100 10) simpleGrading (1 10 1)
+    
+);
+
+edges
+(
+);
+
+boundary
+(
+    wallsAdiabatic
+    {
+        type wall;
+        faces
+        (
+            (v13 v14 v15 v16)
+	    (v14 v23 v24 v15)
+	    (v23 v31 v32 v24)
+	    (v31 v39 v40 v32)
+	    
+	    (v39 v47 v48 v40)
+	    (v47 v45 v46 v48)
+	    (v45 v43 v44 v46)
+	    (v43 v41 v42 v44)
+	    
+	    (v41 v33 v34 v42)
+	    (v33 v25 v26 v34)
+	    (v25 v17 v18 v26)
+	    (v17 v2 v3 v18)
+	    
+	    (v2 v1 v4 v3)
+	    (v1 v5 v8 v4)
+	    (v5 v9 v12 v8)
+	    (v9 v13 v16 v12) 
+	    
+	    (v12 v16 v15 v11)
+	    (v11 v15 v24 v22)
+	    (v22 v24 v32 v30)
+	    (v30 v32 v40 v38)
+	    
+	    (v38 v40 v48 v46)
+	    (v7 v11 v22 v20)
+	    (v8 v7 v3 v4)    
+	    (v3 v7 v20 v18)
+	    
+	    (v18 v20 v28 v26)
+	    (v26 v28 v36 v34)
+	    (v34 v36 v44 v42)
+	    (v28 v30 v38 v36)
+   
+        );
+    }
+    
+    wallsInlet
+    {
+        type wall;
+        faces
+        (
+            (v12 v11 v50 v49)
+	    (v11 v7 v52 v50)
+	    (v7 v8 v51 v52)
+	    (v8 v12 v49 v51)
+        );
+    }
+    
+    wallsOutlet
+    {
+        type wall;
+        faces
+        (
+            (v36 v38 v53 v55)
+	    (v38 v46 v54 v53)
+	    (v46 v44 v56 v54)
+	    (v44 v36 v55 v56)
+        );
+    }
+        
+    inlet
+    {
+        type patch;
+        faces
+        (
+            (v51 v49 v50 v52)
+        );
+    }
+    outlet
+    {
+        type patch;
+        faces
+        (
+            (v55 v53 v54 v56)
+        );
+    }
+
+    baffleFluidToSolid
+    {
+        type mappedWall;
+	sampleMode      nearestPatchFace;
+        sampleRegion    solid;
+        samplePatch     baffleSolidToFluid;
+        faces
+        (
+	  (v1 v2 v6 v5)
+	  (v5 v6 v10 v9)
+	  (v9 v10 v14 v13)
+	  (v2 v17 v19 v6)
+	  
+	  (v6 v19 v21 v10)
+	  (v10 v21 v23 v14)
+	  (v17 v25 v27 v19)
+	  (v21 v29 v31 v23)
+	  
+	  (v25 v33 v35 v27)
+	  (v27 v35 v37 v29)
+	  (v29 v37 v39 v31)
+	  (v33 v41 v43 v35)
+	  
+	  (v35 v43 v45 v37)
+	  (v37 v45 v47 v39)
+	  (v19 v21 v22 v20)
+	  (v27 v29 v30 v28)
+	  
+	  (v21 v29 v30 v22)
+	  (v19 v27 v28 v20)
+	);
+    }
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

@@ -1,0 +1,48 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+pointSync false;
+
+writeCyclicMatch  false;
+
+// Patches to create.
+patches
+(
+    {
+        // Name of new patch
+        name baffleSolidToFluid;
+
+        // Dictionary to construct new patch from
+        patchInfo
+        {
+            type mappedWall;
+            sampleMode      nearestPatchFace;
+	    sampleRegion    fluid;
+	    samplePatch     baffleFluidToSolid;
+	    
+        }
+
+        // How to construct: either from 'patches' or 'set'
+        constructFrom patches;
+
+        // If constructFrom = patches : names of patches. Wildcards allowed.
+        patches (wallSolidToFluid);
+
+    }
+);
+
+// ************************************************************************* //
