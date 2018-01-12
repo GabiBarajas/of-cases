@@ -1,0 +1,14 @@
+    yPlus_fluidA
+    {
+        type            yPlus;
+	region 		fluidA;	
+        writeControl    outputTime;
+        libs            ("libfieldFunctionObjects.so");
+    }  
+    yPlus_fluidB
+    {
+        type            yPlus;
+	region 		fluidB;	
+        writeControl    outputTime;
+        libs            ("libfieldFunctionObjects.so");        
+    }     

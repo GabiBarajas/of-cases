@@ -1,0 +1,39 @@
+    Average_fluidA_outlet
+    {
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        log             yes;
+        writeControl    timeStep;
+        writeFields     false;
+        surfaceFormat   none;
+        regionType      patch;
+        name            outlet;
+	region 		fluidA;	
+        operation       areaAverage;
+        fields
+        (
+            T
+        );
+    }  
+    Average_fluidB_outlet
+    {
+        type            surfaceFieldValue;
+        libs            ("libfieldFunctionObjects.so");
+        log             yes;
+        writeControl    timeStep;
+        writeFields     false;
+        surfaceFormat   none;
+        regionType      patch;
+        name            outlet;
+	region 		fluidB;	
+        operation       areaAverage;
+        fields
+        (
+            T
+        );
+    }  
+    
+    
+    
+
+    
