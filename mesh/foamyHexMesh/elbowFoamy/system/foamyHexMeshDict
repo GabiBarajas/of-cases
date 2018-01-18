@@ -1,0 +1,266 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+    class           dictionary;
+    object          foamyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Include defaults parameters from master dictionary
+#includeEtc "caseDicts/foamyHexMeshDict"
+
+// Any scalar with a name <name>Coeff specifies a value that will be implemented
+// as a faction of the target cell size
+
+geometry
+{
+    #include "meshDict.geometry"
+}
+
+
+initialPoints
+{
+    initialPointsMethod         autoDensity;
+
+    autoDensityCoeffs
+    {
+        minLevels               2;
+        maxSizeRatio            2.0;
+        sampleResolution        5;
+        surfaceSampleResolution 10;
+    }
+}
+
+
+surfaceConformation
+{
+    locationInMesh      (50 0 0);
+
+    geometryToConformTo
+    {
+        joinedNetgen
+        {
+            featureMethod           extractFeatures;
+            includedAngle           140;
+
+            regions
+            {
+                inletLarge
+                {
+                    patchInfo
+                    {
+                        type        patch;
+                        inGroups    (inletGroup);
+                    }
+                }
+
+                inletSmall
+                {
+                    patchInfo
+                    {
+                        type        patch;
+                        inGroups    (inletGroup);
+                    }
+                }
+
+                outlet
+                {
+                    patchInfo
+                    {
+                        type        patch;
+                        inGroups    (outletGroup);
+                    }
+                }
+
+                wallLarge
+                {
+                    patchInfo
+                    {
+                        type        wall;
+                        inGroups    (wallGroup);
+                    }
+                }
+                
+                wallSmall
+                {
+                    patchInfo
+                    {
+                        type        wall;
+                        inGroups    (wallGroup);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+motionControl
+{
+    defaultCellSize             3;
+
+    minimumCellSizeCoeff        0;
+
+    maxSmoothingIterations      100;
+
+    maxRefinementIterations     0;
+
+    shapeControlFunctions
+    {
+        joinedNetgen
+        {
+            type                        searchableSurfaceControl;
+            priority                    1;
+            mode                        inside;
+            surfaceCellSizeFunction     uniformValue;
+            uniformValueCoeffs
+            {
+                surfaceCellSizeCoeff    1;
+            }
+            cellSizeFunction            surfaceOffsetLinearDistance;
+            surfaceOffsetLinearDistanceCoeffs
+            {
+                distanceCellSizeCoeff   1;
+                surfaceOffsetCoeff      2.5;
+                linearDistanceCoeff     2.5;
+            }
+
+            regions
+            {
+                wallLarge
+                {
+                    type                        searchableSurfaceControl;
+                    priority                    2;
+                    mode                        inside;
+                    surfaceCellSizeFunction     uniformValue;
+                    uniformValueCoeffs
+                    {
+                        surfaceCellSizeCoeff    0.8;
+                    }
+                    cellSizeFunction            linearDistance;
+		    linearDistanceCoeffs
+		    {
+			distanceCellSizeCoeff   0.5;
+			distanceCoeff           4;
+		    }
+                }
+                
+                wallSmall
+                {
+                    type                        searchableSurfaceControl;
+                    priority                    2;
+                    mode                        inside;
+                    surfaceCellSizeFunction     uniformValue;
+                    uniformValueCoeffs
+                    {
+                        surfaceCellSizeCoeff    0.4;
+                    }
+                    cellSizeFunction            linearDistance;
+		    linearDistanceCoeffs
+		    {
+			distanceCellSizeCoeff   0.5;
+			distanceCoeff           8;
+		    }
+                }
+                
+                inletLarge
+                {
+                    type                        searchableSurfaceControl;
+                    priority                    2;
+                    mode                        inside;
+                    surfaceCellSizeFunction     uniformValue;
+                    uniformValueCoeffs
+                    {
+                        surfaceCellSizeCoeff    0.8;
+                    }
+                    cellSizeFunction            linearDistance;
+		    linearDistanceCoeffs
+		    {
+			distanceCellSizeCoeff   1;
+			distanceCoeff           4;
+		    }
+                }
+                
+                inletSmall
+                {
+                    type                        searchableSurfaceControl;
+                    priority                    2;
+                    mode                        inside;
+                    surfaceCellSizeFunction     uniformValue;
+                    uniformValueCoeffs
+                    {
+                        surfaceCellSizeCoeff    0.3;
+                    }
+                    cellSizeFunction            linearDistance;
+		    linearDistanceCoeffs
+		    {
+			distanceCellSizeCoeff   1;
+			distanceCoeff           4;
+		    }
+                }
+                
+                outlet
+                {
+                    type                        searchableSurfaceControl;
+                    priority                    2;
+                    mode                        inside;
+                    surfaceCellSizeFunction     uniformValue;
+                    uniformValueCoeffs
+                    {
+                        surfaceCellSizeCoeff    0.8;
+                    }
+                    cellSizeFunction            linearDistance;
+		    linearDistanceCoeffs
+		    {
+			distanceCellSizeCoeff   1;
+			distanceCoeff           4;
+		    }
+                }
+            }
+        }
+    }
+
+    adaptiveLinearCoeffs
+    {
+        relaxationStart         1.0;
+        relaxationEnd           0.0;
+    }
+
+    objOutput                   no;
+
+    timeChecks                  no;
+}
+
+
+backgroundMeshDecomposition
+{
+    minLevels           1;
+    sampleResolution    4;
+    spanScale           5;
+    maxCellWeightCoeff  10;
+}
+
+
+meshQualityControls
+{
+    #include "meshQualityDict"
+}
+
+polyMeshFiltering
+{
+    writeBackgroundMeshDecomposition    true;
+    writeCellShapeControlMesh           true;
+    writeTetDualMesh                    false;
+    filterEdges                         on;
+    filterFaces                         off;
+}
+
+// ************************************************************************* //

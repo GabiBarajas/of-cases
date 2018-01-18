@@ -1,0 +1,104 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  dev                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : dev-a5a034a1d212
+Exec   : checkMesh -constant
+Date   : Jan 18 2018
+Time   : 13:15:33
+Host   : "localhost.localdomain"
+PID    : 6685
+I/O    : uncollated
+Case   : /home/nl/OF-cases/elbow/elbowFoamy
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = constant
+
+Time = constant
+
+Mesh stats
+    points:           360102
+    faces:            913533
+    internal faces:   887198
+    cells:            266797
+    faces per cell:   6.74944
+    boundary patches: 5
+    point zones:      5
+    face zones:       0
+    cell zones:       0
+
+Overall number of cells of each type:
+    hexahedra:     144677
+    prisms:        1030
+    wedges:        4413
+    pyramids:      6
+    tet wedges:    63
+    tetrahedra:    6
+    polyhedra:     116602
+    Breakdown of polyhedra by number of faces:
+        faces   number of cells
+            4   15
+            5   464
+            6   12185
+            7   54161
+            8   24911
+            9   12735
+           10   6239
+           11   3019
+           12   1574
+           13   757
+           14   337
+           15   136
+           16   50
+           17   14
+           18   4
+           19   1
+
+Checking topology...
+    Boundary definition OK.
+    Cell to face addressing OK.
+    Point usage OK.
+    Upper triangular ordering OK.
+    Face vertices OK.
+    Number of regions: 1 (OK).
+
+Checking patch topology for multiply connected surfaces...
+                   Patch    Faces   Points                  Surface topology
+              inletLarge      464      518  ok (non-closed singly connected)
+              inletSmall      659      756  ok (non-closed singly connected)
+                  outlet      453      515  ok (non-closed singly connected)
+               wallLarge    16826    18375  ok (non-closed singly connected)
+               wallSmall     7933     9832  ok (non-closed singly connected)
+
+Checking geometry...
+    Overall domain bounding box (-3.52496e-18 -0.178 -0.0251013) (0.30012 0.575 0.0251836)
+    Mesh has 3 geometric (non-empty/wedge) directions (1 1 1)
+    Mesh has 3 solution (non-empty) directions (1 1 1)
+    Boundary openness (-8.04352e-17 6.50173e-17 -2.75779e-16) OK.
+    Max cell openness = 3.62752e-16 OK.
+    Max aspect ratio = 10.8716 OK.
+    Minimum face area = 2e-15. Maximum face area = 1.57887e-05.  Face area magnitudes OK.
+    Min volume = 7.30212e-12. Max volume = 5.08738e-08.  Total volume = 0.00172643.  Cell volumes OK.
+    Mesh non-orthogonality Max: 79.6035 average: 8.88869
+   *Number of severely non-orthogonal (> 70 degrees) faces: 1.
+    Non-orthogonality check OK.
+  <<Writing 1 non-orthogonal faces to set nonOrthoFaces
+ ***Error in face pyramids: 4 faces are incorrectly oriented.
+  <<Writing 4 faces with incorrect orientation to set wrongOrientedFaces
+ ***Max skewness = 16.8696, 20 highly skew faces detected which may impair the quality of the results
+  <<Writing 20 skew faces to set skewFaces
+    Coupled point location match (average 0) OK.
+
+Failed 2 mesh checks.
+
+End
+

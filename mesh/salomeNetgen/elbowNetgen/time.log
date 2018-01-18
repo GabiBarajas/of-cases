@@ -1,0 +1,5 @@
+rm: cannot remove ‘log.refineWallLayer’: No such file or directory
+
+real	0m23.602s
+user	0m22.543s
+sys	0m1.093s

@@ -1,0 +1,42 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application directory
+application=`getApplication`
+
+cd constant/triSurface
+tar -xvf ../../../../joinedNetgen.tar.gz
+cd ../../
+
+cp system/controlDict.mesh system/controlDict
+
+runApplication foamyHexMesh
+runApplication collapseEdges -latestTime -collapseFaces
+#rm log.collapseEdges
+#runApplication collapseEdges -latestTime -collapseFaceSet indirectPatchFaces
+
+latestTime=$(foamListTimes -latestTime)
+cp -r $latestTime/polyMesh constant
+rm -rf 0 $latestTime 100 101 102
+
+cp system/controlDict.flow system/controlDict
+
+for i in {1..2}
+do
+   rm log.refineWallLayer
+   runApplication refineWallLayer "(wallLarge wallSmall)" 0.5 -overwrite
+done
+
+runApplication changeDictionary
+runApplication transformPoints -scale "(0.001 0.001 0.001)"
+
+cp -r 0.org 0
+
+#runApplication potentialFoam
+
+#runApplication $application
+
+#------------------------------------------------------------------------------

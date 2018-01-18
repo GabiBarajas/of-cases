@@ -1,0 +1,32 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application directory
+application=`getApplication`
+
+cd constant/triSurface
+tar -xvf ../../../../joinedNetgen.tar.gz
+cd ../../
+
+runApplication blockMesh
+runApplication surfaceFeatureExtract
+runApplication snappyHexMesh
+
+latestTime=$(foamListTimes -latestTime)
+cp -r $latestTime/polyMesh constant
+rm -rf $latestTime 0 1 2
+
+runApplication changeDictionary
+runApplication transformPoints -scale "(0.001 0.001 0.001)"
+
+cp -r 0.org 0
+
+#runApplication potentialFoam
+
+#runApplication $application
+
+
+#------------------------------------------------------------------------------
