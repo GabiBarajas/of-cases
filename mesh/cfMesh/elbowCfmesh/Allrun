@@ -1,0 +1,26 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application directory
+application=`getApplication`
+
+tar -xvf ../../joinedNetgen.tar.gz
+
+runApplication surfaceToFMS joinedNetgen.stl
+runApplication surfaceFeatureEdges -angle 80 joinedNetgen.fms joinedNetgen2.fms
+runApplication cartesianMesh
+
+runApplication changeDictionary
+runApplication transformPoints -scale "(0.001 0.001 0.001)"
+
+cp -r 0.org 0
+
+#runApplication potentialFoam
+
+#runApplication $application
+
+
+#------------------------------------------------------------------------------
