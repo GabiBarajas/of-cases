@@ -1,0 +1,18 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      particleTrackProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+cloudName       kinematicCloud; //reactingCloud1;
+
+sampleFrequency 1;
+
+maxPositions    20000000; //1000000;
+
+setFormat       vtk;    // see sampleDict for set formats
+
+// ************************************************************************* //

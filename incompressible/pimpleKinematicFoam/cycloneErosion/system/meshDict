@@ -1,0 +1,126 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                |
+| \\      /  F ield         | cfMesh: A library for mesh generation          | 
+|  \\    /   O peration     |                                                |
+|   \\  /    A nd           | Author: Franjo Juretic                         | 
+|    \\/     M anipulation  | E-mail: franjo.juretic@c-fields.com            |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version   2.0;
+    format    ascii;
+    class     dictionary;
+    location  "system";
+    object    meshDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+surfaceFile "cyclone2.fms";
+
+maxCellSize 0.05;
+
+boundaryCellSize 0.025;
+
+boundaryCellSizeRefinementThickness 0.001;
+
+keepCellsIntersectingBoundary  0;
+
+checkForGluedMesh   0;
+
+//minCellSize 5.00;
+
+localRefinement
+{ 
+    "vortexfinder.*"
+    {
+        additionalRefinementLevels 1;
+    }
+    
+    "body.*"
+    {
+        additionalRefinementLevels 1;
+    }
+        
+    "inlet-walls.*"
+    {
+        additionalRefinementLevels 1;
+    }
+    
+    "inlet.*"
+    {
+        additionalRefinementLevels 1;
+    }
+    
+    "overflow.*"
+    {
+        additionalRefinementLevels 1;
+    }
+
+    "underflow.*"
+    {
+        additionalRefinementLevels 1;
+    }
+    
+}
+
+objectRefinements
+{
+
+}
+
+keepCellsIntersectingPatches
+{
+}
+
+boundaryLayers
+{
+    
+     optimiseLayer 1;
+
+//       untangleLayers 0;
+  
+    patchBoundaryLayers
+    {
+        "body.*"
+        {
+            nLayers  2;
+            
+            thicknessRatio 1.15;
+            
+            reCalculateNormals 1;
+          
+        }
+        "vortexfinder.*"
+        {
+            nLayers  2;
+            
+            thicknessRatio 1.15;
+            
+            reCalculateNormals 1;
+          
+        }
+        "inlet-walls.*"
+        {
+            nLayers  2;
+            
+            thicknessRatio 1.15;
+            
+            reCalculateNormals 1;
+          
+        }
+    }
+}
+
+anisotropicSources
+{
+
+}
+
+renameBoundary
+{
+}
+               
+     
+// ************************************************************************* //

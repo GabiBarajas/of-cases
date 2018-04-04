@@ -1,0 +1,24 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Get application directory
+application=`getApplication`
+
+tar -xvf ./cyclone.tar.gz
+
+runApplication surfaceToFMS cyclone.stl
+runApplication surfaceFeatureEdges -angle 80 cyclone.fms cyclone2.fms
+runApplication cartesianMesh
+
+runApplication changeDictionary
+
+cp -r 0.org 0
+
+runApplication decomposePar
+
+runApplication $application
+
+#------------------------------------------------------------------------------
