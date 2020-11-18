@@ -1,0 +1,75 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX(R): Open-source CFD for Enterprise                 |
+|   o   O   o      | Version: v3.3.0-R1                                       |
+|    o     o       | Engys Ltd. http://www.engys.com                          |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class polyBoundaryMesh;
+    location "constant/polyMesh";
+    object boundary;
+}
+9(
+    wedgeFace1
+    {
+        type wedge;
+        nFaces 52850;
+        startFace 105076;
+    }
+    inletPrimary
+    {
+        type patch;
+        nFaces 12;
+        startFace 157926;
+        physicalType inlet;
+    }
+    inletSecondary
+    {
+        type patch;
+        nFaces 6;
+        startFace 157938;
+        physicalType inlet;
+    }
+    inletAmbient
+    {
+        type patch;
+        nFaces 20;
+        startFace 157944;
+        physicalType inlet;
+    }
+    wallInletNozzle
+    {
+        type wall;
+        nFaces 6;
+        startFace 157964;
+    }
+    wallInlet
+    {
+        type wall;
+        nFaces 50;
+        startFace 157970;
+    }
+    wallOuter
+    {
+        type wall;
+        nFaces 633;
+        startFace 158020;
+    }
+    outlet
+    {
+        type patch;
+        nFaces 21;
+        startFace 158653;
+        physicalType opening;
+    }
+    wedgeFace2
+    {
+        type wedge;
+        nFaces 52850;
+        startFace 158674;
+    }
+)

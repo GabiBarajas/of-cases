@@ -1,0 +1,72 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX(R) Core: Open-source CFD for Enterprise            |
+|   o   O   o      | Version: 3.3.0                                           |
+|    o     o       | ENGYS Ltd. <http://engys.com/>                           |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      k;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -2 0 0 0 0];
+
+
+internalField   uniform 0.00375;
+
+boundaryField
+{
+    wedgeFace1
+    {
+        type            wedge;
+    }
+    inletPrimary
+    {
+        type            fixedValue;
+        value           uniform 0.0375;
+    }
+    inletSecondary
+    {
+        type            fixedValue;
+        value           uniform 0.0375;
+    }
+    inletAmbient
+    {
+        type            fixedValue;
+        value           uniform 0.0375;
+    }
+    wallInletNozzle
+    {
+        type            kqRWallFunction;
+        value           uniform 0.1;
+    }
+    wallInlet
+    {
+        type            kqRWallFunction;
+        value           uniform 0.1;
+    }
+    wallOuter
+    {
+        type            kqRWallFunction;
+        value           uniform 0.1;
+    }
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform 0.0375;
+        value           uniform 0.0375;
+    }
+    wedgeFace2
+    {
+        type            wedge;
+    }
+}
+
+
+// ************************************************************************* //

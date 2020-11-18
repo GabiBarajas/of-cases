@@ -1,0 +1,83 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX(R) Core: Open-source CFD for Enterprise            |
+|   o   O   o      | Version: 3.3.0                                           |
+|    o     o       | ENGYS Ltd. <http://engys.com/>                           |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    location    "0";
+    object      nut;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 2 -1 0 0 0 0];
+
+
+internalField   uniform 0.0003354101966;
+
+boundaryField
+{
+    wedgeFace1
+    {
+        type            wedge;
+    }
+    inletPrimary
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    inletSecondary
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    inletAmbient
+    {
+        type            calculated;
+        value           uniform 0;
+    }
+    wallInletNozzle
+    {
+        type            nutUSpaldingWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        lastUpdated     -0.001;
+        value           uniform 0.001;
+    }
+    wallInlet
+    {
+        type            nutUSpaldingWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        lastUpdated     -0.001;
+        value           uniform 0.001;
+    }
+    wallOuter
+    {
+        type            nutUSpaldingWallFunction;
+        Cmu             0.09;
+        kappa           0.41;
+        E               9.8;
+        lastUpdated     -0.001;
+        value           uniform 0.001;
+    }
+    outlet
+    {
+        type            calculated;
+        value           uniform 0.001;
+    }
+    wedgeFace2
+    {
+        type            wedge;
+    }
+}
+
+
+// ************************************************************************* //
