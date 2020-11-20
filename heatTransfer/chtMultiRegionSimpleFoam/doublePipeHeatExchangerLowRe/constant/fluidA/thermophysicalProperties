@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.x                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -35,14 +35,14 @@ mixture
     }
     thermodynamics 
     {
-	Hf -286000.0;
-	CpCoeffs<8> (12010.1 -80.4 0.31 -0.000538 3.62e-07 0.0 0.0 0.0);
-	Sf 69.95;
+        Hf -286000.0;
+        CpCoeffs<8> (12010.1 -80.4 0.31 -0.000538 3.62e-07 0.0 0.0 0.0);
+        Sf 69.95;
     }
     transport
     {
         kappaCoeffs<8> (-0.869 0.00895 -1.58e-05 7.97e-09 0.0 0.0 0.0 0.0);
-	muCoeffs<8> (0.0374 -3.093e-4 9.609e-7 -1.32e-9 6.746e-13 0 0.0 0.0);
+	    muCoeffs<8> (0.0374 -3.093e-4 9.609e-7 -1.32e-9 6.746e-13 0 0.0 0.0);
     }
     equationOfState
     {
