@@ -8,13 +8,13 @@
 
 cd Mesh
 
-$HOME/salome/appli_V7_7_1/runAppli SalomeGeometry.py -t --shutdown-servers=1
+salome start -t --shutdown-servers=1 SalomeGeometry.py
 
 # ---- PROPELLER MESH GENERATION ---- #
 
 cd Propeller
 
-sh gmshToStl.sh
+sh renameStl.sh
 
 runApplication surfaceToFMS joined.stl
 
@@ -28,7 +28,7 @@ runApplication cartesianMesh
 
 cd ../Domain
 
-sh gmshToStl.sh
+sh renameStl.sh
 
 runApplication surfaceToFMS joined.stl
 

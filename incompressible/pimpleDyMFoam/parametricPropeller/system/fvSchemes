@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -31,7 +31,7 @@ divSchemes
 {
     default         none;
 //    div(phi,U)      Gauss upwind;
-    div(phi,U)      Gauss linearUpwind grad(U);
+    div(phi,U)      Gauss GammaV 0.2;
     div(phi,k)      Gauss upwind;
     div(phi,omega) Gauss upwind;
     div((nuEff*dev2(T(grad(U))))) Gauss linear;

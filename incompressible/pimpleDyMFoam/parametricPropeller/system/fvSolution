@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -63,14 +63,65 @@ solvers
 PIMPLE
 {
     correctPhi          no;
-    nOuterCorrectors    2;
+    nOuterCorrectors    50;
     nCorrectors         1;
     nNonOrthogonalCorrectors 0;
+    transonic           no;
+    turbOnFinalIterOnly no;
+    momentumPredictor yes;
+    consistent          true;
+
+    residualControl
+    {
+        "(p)"
+        {
+            relTol          0;
+            tolerance       0.02;
+        }
+        "(U)"
+        {
+            relTol          0;
+            tolerance       0.005;
+        }
+        "(s|k|omega)"
+        {
+            relTol          0;
+            tolerance       0.005;
+        }
+    }
+
+    outerCorrectorResidualControl
+    {
+        "(p)"
+        {
+            relTol          0;
+            tolerance       0.02;
+        }
+        "(U)"
+        {
+            relTol          0;
+            tolerance       0.005;
+        }
+        "(s|k|omega)"
+        {
+            relTol          0;
+            tolerance       0.005;
+        }
+    }
 }
 
 relaxationFactors
 {
-    "(U|k|omega).*"   1;
+    fields
+    {
+        p               0.3;
+        pFinal          0.3;
+    }
+    equations
+    {
+        "U|k|epsilon|omega|s"      0.5;
+        "(U|k|epsilon|omega|s)Final"      0.5;
+    }
 }
 
 cache

@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  dev                                   |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -23,33 +23,33 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         0.1;
+endTime         0.07953445830;//Stop after 2 rotations
 
-deltaT          1e-5;
+deltaT          0.0000110464525; //0.1 degree per timestep
 writeControl    adjustableRunTime;
-writeInterval   0.001;
+writeInterval   0.001104645254; //Write every 10 degree rotation
 
 purgeWrite      0;
 
-writeFormat     binary;
+writeFormat     ascii;
 
-writePrecision  6;
+writePrecision  10;
 
 writeCompression off;
 
 timeFormat      general;
 
-timePrecision   6;
+timePrecision   10;
 
 runTimeModifiable true;
 
-adjustTimeStep  yes;
+adjustTimeStep  false; //Set to true to use the pimple scheme to increase timestep.
 
-maxCo           2;
+maxCo           10;
 
 functions
 {
-    #include "Q"
+    #includeFunc "Q"
     #include "forces"
 }
 

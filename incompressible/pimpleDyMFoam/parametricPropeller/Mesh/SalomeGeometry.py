@@ -3,12 +3,25 @@
 import math
 import salome
 import collections
+import os,sys
+
+# STL finenes
+stlsize = 0.1
+
+fpath = os.path.dirname(sys.argv[0])
 
 # INIT THE SALOME PART
 salome.salome_init()
-theStudy = salome.myStudy
+import salome_notebook
+notebook = salome_notebook.NoteBook()
+sys.path.insert(0, fpath)
+
+import GEOM
 from salome.geom import geomBuilder
-geompy = geomBuilder.New(theStudy)
+import math
+import SALOMEDS
+
+geompy = geomBuilder.New()
 
 # STD GLOBAL VECTORS, CENTER AND PLANES
 O = geompy.MakeVertex(0, 0, 0)
@@ -160,9 +173,9 @@ def makePropeller(skewLine,pitchLine,coordLine,profile,coordLengthAtHub,nBlades,
     
     geompy.addToStudyInFather( cfdDomain, rotatingWallPropeller, 'rotatingWallPropeller' )
     
-    geompy.ExportBREP(rotatingWallPropeller, "./Propeller/rotatingWallPropellerMesh.brep" )
+    geompy.ExportSTL(rotatingWallPropeller, "./Propeller/rotatingWallPropellerMesh.stl", True, stlsize, False)
     
-    geompy.ExportBREP(trailRefinementFaces, "./Propeller/refineTrailFacesMesh.brep" )
+    geompy.ExportSTL(trailRefinementFaces, "./Propeller/refineTrailFacesMesh.stl", True, stlsize, False)
     
     
     amiGroupIDs = []
@@ -175,8 +188,8 @@ def makePropeller(skewLine,pitchLine,coordLine,profile,coordLengthAtHub,nBlades,
     
     geompy.addToStudyInFather(cfdDomain, amiPropeller, 'amiPropeller')
     
-    geompy.ExportBREP(amiPropeller, "./Propeller/amiPropellerMesh.brep" )
-    geompy.ExportBREP(amiPropeller, "./Domain/amiDomainMesh.brep" )
+    geompy.ExportSTL(amiPropeller, "./Propeller/amiPropellerMesh.stl", True, stlsize, False)
+    geompy.ExportSTL(amiPropeller, "./Domain/amiDomainMesh.stl", True, stlsize, False)
     
     
     outerCylinderStartPoint = geompy.MakeVertex(0,-propRadius*5,0)
@@ -195,9 +208,9 @@ def makePropeller(skewLine,pitchLine,coordLine,profile,coordLengthAtHub,nBlades,
     slipOuter = geompy.CreateGroup(outerDomain, geompy.ShapeType["FACE"])
     geompy.UnionIDs(slipOuter, [3])
     
-    geompy.ExportBREP(inlet, "./Domain/inletMesh.brep" )
-    geompy.ExportBREP(outlet, "./Domain/outletMesh.brep" )
-    geompy.ExportBREP(slipOuter, "./Domain/slipOuterMesh.brep" )
+    geompy.ExportSTL(inlet, "./Domain/inletMesh.stl", True, stlsize, False)
+    geompy.ExportSTL(outlet, "./Domain/outletMesh.stl", True, stlsize, False)
+    geompy.ExportSTL(slipOuter, "./Domain/slipOuterMesh.stl", True, stlsize, False)
     
     
     
