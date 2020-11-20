@@ -86,7 +86,7 @@ subModels
         model1
         {
             type            patchInjection;
-            patchName 		 inlet;           // Name of patch
+            patch           inlet;           // Name of patch
             SOI             2.5;             // Start Of Injection
             flowRateProfile constant 2.8e-4; // Flow rate profile relative to SOI
        		massTotal       100;             // Total mass injected over injection duration
