@@ -23,6 +23,9 @@ from salome.geom import geomBuilder
 import math
 import SALOMEDS
 
+# STL finenes
+stlsize = 0.1
+
 ahmedLength = 1044
 ahmedWidth = 389
 ahmedLegHeight = 50
@@ -93,19 +96,19 @@ geompy.UnionIDs(wallSide, [103])
 outlet = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 geompy.UnionIDs(outlet, [54])
 
-geompy.ExportBREP(wallGround, "./wallGroundMesh.brep" )
-geompy.ExportBREP(inlet, "./inletMesh.brep" )
-geompy.ExportBREP(symmetry, "./symmetryMesh.brep" )
-geompy.ExportBREP(slipwallTop, "./slipwallTop.brep" )
-geompy.ExportBREP(slipwallSide, "./slipwallSide.brep" )
-geompy.ExportBREP(wallLegs, "./wallLegs.brep" )
-geompy.ExportBREP(wallFront, "./wallFront.brep" )
-geompy.ExportBREP(wallUnder, "./wallUnder.brep" )
-geompy.ExportBREP(wallSlant, "./wallSlant.brep" )
-geompy.ExportBREP(wallBehind, "./wallBehind.brep" )
-geompy.ExportBREP(wallTop, "./wallTop.brep" )
-geompy.ExportBREP(wallSide, "./wallSide.brep" )
-geompy.ExportBREP(outlet, "./outletMesh.brep" )
+geompy.ExportSTL(wallGround, "./wallGroundMesh.stl", True, stlsize, False )
+geompy.ExportSTL(inlet, "./inletMesh.stl", True, stlsize, False )
+geompy.ExportSTL(symmetry, "./symmetryMesh.stl", True, stlsize, False )
+geompy.ExportSTL(slipwallTop, "./slipwallTop.stl", True, stlsize, False )
+geompy.ExportSTL(slipwallSide, "./slipwallSide.stl", True, stlsize, False )
+geompy.ExportSTL(wallLegs, "./wallLegs.stl", True, stlsize, False )
+geompy.ExportSTL(wallFront, "./wallFront.stl", True, stlsize, False )
+geompy.ExportSTL(wallUnder, "./wallUnder.stl", True, stlsize, False )
+geompy.ExportSTL(wallSlant, "./wallSlant.stl", True, stlsize, False )
+geompy.ExportSTL(wallBehind, "./wallBehind.stl", True, stlsize, False )
+geompy.ExportSTL(wallTop, "./wallTop.stl", True, stlsize, False )
+geompy.ExportSTL(wallSide, "./wallSide.stl", True, stlsize, False )
+geompy.ExportSTL(outlet, "./outletMesh.stl", True, stlsize, False )
 
 
 geompy.addToStudy( O, 'O' )

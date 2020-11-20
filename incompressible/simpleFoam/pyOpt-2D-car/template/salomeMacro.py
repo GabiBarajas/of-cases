@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-###
-### This file is generated automatically by SALOME v7.7.1 with dump python functionality
-###
-
 import math
 import salome
 import collections
@@ -26,7 +22,8 @@ r4 = inputDict['r4']
 r5 = inputDict['r5']
 r6 = inputDict['r6']
 
-
+# STL finenes
+stlsize = 0.1
 
 geompy = geomBuilder.New(theStudy)
 
@@ -98,11 +95,11 @@ outlet = geompy.CreateGroup(Extrusion_2, geompy.ShapeType["FACE"])
 geompy.UnionIDs(outlet, [19])
 wallGround = geompy.CreateGroup(Extrusion_2, geompy.ShapeType["FACE"])
 geompy.UnionIDs(wallGround, [26])
-geompy.ExportBREP(Extrusion_1, "wallCarMesh.brep" )
-geompy.ExportBREP(inlet, "inletMesh.brep" )
-geompy.ExportBREP(slipTop, "slipTopMesh.brep" )
-geompy.ExportBREP(outlet, "outletMesh.brep" )
-geompy.ExportBREP(wallGround, "wallGroundMesh.brep" )
+geompy.ExportSTL(Extrusion_1, "wallCarMesh.stl", True, stlsize, False)
+geompy.ExportSTL(inlet, "inletMesh.stl", True, stlsize, False)
+geompy.ExportSTL(slipTop, "slipTopMesh.stl", True, stlsize, False)
+geompy.ExportSTL(outlet, "outletMesh.stl", True, stlsize, False)
+geompy.ExportSTL(wallGround, "wallGroundMesh.stl", True, stlsize, False)
 geompy.addToStudy( O, 'O' )
 geompy.addToStudy( OX, 'OX' )
 geompy.addToStudy( OY, 'OY' )

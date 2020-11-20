@@ -45,7 +45,7 @@ def replace(fileIn,searchBC,subst):
     # Using mode 'w' truncates the file.
     file_handle = open(fileIn, 'w')
     file_handle.write(file_string)
-    file_handle.close()
+    file_handle.close()com
 
 
 
@@ -76,20 +76,20 @@ def objfunc(x):
     
     os.chdir(caseDir)
     
-    runSalomeCommand='xterm -e "/home/nl/salome/appli_V7_7_1/runAppli -t --server-launch-mode=fork --shutdown-servers=1 salomeMacro.py"'
+    runSalomeCommand='xterm -e "module load salome/9.5.0 && salome start -t --server-launch-mode=fork --shutdown-servers=1 salomeMacro.py"'
     subprocess.call(runSalomeCommand,shell=True)
     
-    createStl='xterm -e "./gmshToStl.sh"'
+    createStl='xterm -e "./renameStl.sh"'
     subprocess.call(createStl,shell=True)
     
-    createMesh='xterm -e ". /home/nl/OpenFOAM/cfMesh-1.1.1/OpenFOAM-2.3.0/etc/bashrc && surfaceToFMS joined.stl && surfaceFeatureEdges -angle 80 joined.fms joined2.fms && cartesian2DMesh"'
+    createMesh='xterm -e "module load openfoam/com/20.06 && surfaceToFMS joined.stl && surfaceFeatureEdges -angle 80 joined.fms joined2.fms && cartesian2DMesh"'
     subprocess.call(createMesh,shell=True)
     
-    setupCase='xterm -e bash -c \'. /home/nl/OpenFOAM/OpenFOAM-dev/etc/bashrc && transformPoints -scale "(0.001 0.001 0.001)" && createPatch -overwrite\''
+    setupCase='xterm -e bash -c \'module load openfoam/com/20.06 && transformPoints -scale "(0.001 0.001 0.001)" && createPatch -overwrite\''
     subprocess.call(setupCase,shell=True)
     
     
-    runSimul='xterm -e ". /home/nl/OpenFOAM/OpenFOAM-dev/etc/bashrc && simpleFoam 2>&1 | tee log.simpleFoam"'
+    runSimul='xterm -e "module load openfoam/com/20.06 && simpleFoam 2>&1 | tee log.simpleFoam"'
     subprocess.call(runSimul,shell=True)
 #    
     try:
