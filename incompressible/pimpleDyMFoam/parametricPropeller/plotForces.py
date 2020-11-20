@@ -37,8 +37,8 @@ f = readForces('./postProcessing/forces/0/force_0.dat',10)
 m = readForces('./postProcessing/forces/0/moment_0.dat',10)
 
 fig, ax = plt.subplots()
-ax.plot(f[0] , f[1], label='Force (N) in y')
-ax.plot(m[0] , m[1], label='Moment (Nm) around y')
+ax.plot(f[0] , f[2], label='Force (N) in y')
+ax.plot(m[0] , m[2], label='Moment (Nm) around y')
 
 ax.set(xlabel='Itteration (-)', ylabel='Force and Moment (-)',
        title='Force and moment plot')
