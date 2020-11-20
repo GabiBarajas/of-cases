@@ -158,6 +158,9 @@ theStudy = salome.myStudy
 import salome_notebook
 notebook = salome_notebook.NoteBook(theStudy)
 
+# STL finenes
+stlsize = 0.1
+
 ###
 ### GEOM component
 ###
@@ -394,12 +397,12 @@ f.write('geompy.addToStudyInFather( SuppressHoles_1, wallOutlet, "wallOutlet" )\
 f.write('geompy.addToStudyInFather( SuppressHoles_1, outlet, "outlet" )\n')
 
 
-f.write('geompy.ExportBREP(amiVoluteToImp, "Volute/amiVoluteToImpMesh.brep" )\n')
-f.write('geompy.ExportBREP(wallTongue, "Volute/wallTongueMesh.brep" )\n')
-f.write('geompy.ExportBREP(wallTopBottom, "Volute/wallTopBottomMesh.brep" )\n')
-f.write('geompy.ExportBREP(wallVolute, "Volute/wallVoluteMesh.brep" )\n')
-f.write('geompy.ExportBREP(wallOutlet, "Volute/wallOutletMesh.brep" )\n')
-f.write('geompy.ExportBREP(outlet, "Volute/outletMesh.brep" )\n')
+f.write('geompy.ExportSTL(amiVoluteToImp, "Volute/amiVoluteToImpMesh.stl", True, stlsize, False )\n')
+f.write('geompy.ExportSTL(wallTongue, "Volute/wallTongueMesh.stl", True, stlsize, False )\n')
+f.write('geompy.ExportSTL(wallTopBottom, "Volute/wallTopBottomMesh.stl", True, stlsize, False )\n')
+f.write('geompy.ExportSTL(wallVolute, "Volute/wallVoluteMesh.stl", True, stlsize, False )\n')
+f.write('geompy.ExportSTL(wallOutlet, "Volute/wallOutletMesh.stl", True, stlsize, False )\n')
+f.write('geompy.ExportSTL(outlet, "Volute/outletMesh.stl", True, stlsize, False )\n')
 
 
 f.close()

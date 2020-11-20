@@ -15,42 +15,38 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 2 -1 0 0 0 0 ];
+dimensions      [0 2 -1 0 0 0 0];
+
 
 internalField   uniform 0;
 
 boundaryField
 {
-    inlet
-    {
-        type            zeroGradient;
-    }
-
-    outlet
-    {
-        type            zeroGradient;
-    }
-    
-    symmetry
-    {
-        type           symmetry;
-    }
-
-    slipWalls
-    {
-        type            slip;
-    }
-
     wallAhmed
     {
         type            nutkWallFunction;
         value           uniform 0;
     }
-    
     wallGround
     {
         type            nutkWallFunction;
         value           uniform 0;
+    }
+    slipWalls
+    {
+        type            slip;
+    }
+    symmetry
+    {
+        type            symmetry;
+    }
+    inlet
+    {
+        type            zeroGradient;
+    }
+    outlet
+    {
+        type            zeroGradient;
     }
 }
 

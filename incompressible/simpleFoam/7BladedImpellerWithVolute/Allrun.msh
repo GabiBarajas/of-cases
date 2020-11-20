@@ -11,15 +11,15 @@ cd Mesh
 python SalomeImpellerAndInlet.py
 python SalomeVolute.py
 
-$HOME/salome/appli_V7_7_1/runAppli impellerInlet_importSalome.py -t --shutdown-servers=1
+salome start -t --shutdown-servers=1 impellerInlet_importSalome.py
 
-$HOME/salome/appli_V7_7_1/runAppli Volute_importSalome.py -t --shutdown-servers=1
+salome start -t --shutdown-servers=1 Volute_importSalome.py
 
 # ---- IMPELLER MESH GENERATION ---- #
 
 cd Impeller
 
-sh gmshToStl.sh
+sh renameStl.sh
 
 runApplication surfaceToFMS joined.stl
 
@@ -33,7 +33,7 @@ runApplication cartesianMesh
 
 cd ../Inlet
 
-sh gmshToStl.sh
+sh renameStl.sh
 
 runApplication surfaceToFMS joined.stl
 
@@ -47,7 +47,7 @@ runApplication cartesianMesh
 
 cd ../Volute
 
-sh gmshToStl.sh
+sh renameStl.sh
 
 runApplication surfaceToFMS joined.stl
 

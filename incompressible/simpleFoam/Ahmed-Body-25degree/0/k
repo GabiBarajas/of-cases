@@ -15,44 +15,40 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [ 0 2 -2 0 0 0 0 ];
+dimensions      [0 2 -2 0 0 0 0];
+
 
 internalField   uniform 0.24;
 
 boundaryField
 {
+    wallAhmed
+    {
+        type            kqRWallFunction;
+        value           uniform 0;
+    }
+    wallGround
+    {
+        type            kqRWallFunction;
+        value           uniform 0;
+    }
+    slipWalls
+    {
+        type            slip;
+    }
+    symmetry
+    {
+        type            symmetry;
+    }
     inlet
     {
         type            turbulentIntensityKineticEnergyInlet;
         intensity       0.02;
         value           uniform 0.24;
     }
-
     outlet
     {
         type            zeroGradient;
-    }
-
-    symmetry
-    {
-        type           symmetry;
-    }
-    
-    slipWalls
-    {
-        type            slip;
-    }
-
-    wallAhmed
-    {
-        type            kqRWallFunction;
-        value           uniform 0;
-    }
-    
-     wallGround
-    {
-        type            kqRWallFunction;
-        value           uniform 0;
     }
 }
 

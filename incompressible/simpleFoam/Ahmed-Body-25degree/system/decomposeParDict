@@ -14,7 +14,7 @@
 } 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * // 
-numberOfSubdomains 3; 
+numberOfSubdomains 16; 
 //method             hierarchical; 
 method              scotch;
 

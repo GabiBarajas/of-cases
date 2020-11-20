@@ -8,20 +8,20 @@ import sys
 import salome
 import os
 
+fpath = os.path.dirname(sys.argv[0])
+
+# INIT THE SALOME PART
 salome.salome_init()
-theStudy = salome.myStudy
-
 import salome_notebook
-notebook = salome_notebook.NoteBook(theStudy)
-
-###
-### GEOM component
-###
+notebook = salome_notebook.NoteBook()
+sys.path.insert(0, fpath)
 
 import GEOM
 from salome.geom import geomBuilder
 import math
 import SALOMEDS
+
+geompy = geomBuilder.New()
 
 # STL finenes
 stlsize = 0.1
@@ -43,9 +43,7 @@ domainMultiplierAfterBody = 3
 domainMultiplierWidth = 3
 domainMultiplierHeight = 3
 
-
-geompy = geomBuilder.New(theStudy)
-
+# Begin CAD
 O = geompy.MakeVertex(0, 0, 0)
 OX = geompy.MakeVectorDXDYDZ(1, 0, 0)
 OY = geompy.MakeVectorDXDYDZ(0, 1, 0)
@@ -82,34 +80,19 @@ geompy.UnionIDs(slipwallSide, [13])
 wallLegs = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 geompy.UnionIDs(wallLegs, [100, 97])
 wallFront = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
-geompy.UnionIDs(wallFront, [84, 106, 89, 79])
+geompy.UnionIDs(wallFront, [84, 106, 74, 79])
 wallUnder = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
-geompy.UnionIDs(wallUnder, [68])
+geompy.UnionIDs(wallUnder, [63])
 wallSlant = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
-geompy.UnionIDs(wallSlant, [56])
+geompy.UnionIDs(wallSlant, [94])
 wallBehind = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
-geompy.UnionIDs(wallBehind, [63])
+geompy.UnionIDs(wallBehind, [56])
 wallTop = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
-geompy.UnionIDs(wallTop, [94])
+geompy.UnionIDs(wallTop, [89])
 wallSide = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 geompy.UnionIDs(wallSide, [103])
 outlet = geompy.CreateGroup(Cut_1, geompy.ShapeType["FACE"])
 geompy.UnionIDs(outlet, [54])
-
-geompy.ExportSTL(wallGround, "./wallGroundMesh.stl", True, stlsize, False )
-geompy.ExportSTL(inlet, "./inletMesh.stl", True, stlsize, False )
-geompy.ExportSTL(symmetry, "./symmetryMesh.stl", True, stlsize, False )
-geompy.ExportSTL(slipwallTop, "./slipwallTop.stl", True, stlsize, False )
-geompy.ExportSTL(slipwallSide, "./slipwallSide.stl", True, stlsize, False )
-geompy.ExportSTL(wallLegs, "./wallLegs.stl", True, stlsize, False )
-geompy.ExportSTL(wallFront, "./wallFront.stl", True, stlsize, False )
-geompy.ExportSTL(wallUnder, "./wallUnder.stl", True, stlsize, False )
-geompy.ExportSTL(wallSlant, "./wallSlant.stl", True, stlsize, False )
-geompy.ExportSTL(wallBehind, "./wallBehind.stl", True, stlsize, False )
-geompy.ExportSTL(wallTop, "./wallTop.stl", True, stlsize, False )
-geompy.ExportSTL(wallSide, "./wallSide.stl", True, stlsize, False )
-geompy.ExportSTL(outlet, "./outletMesh.stl", True, stlsize, False )
-
 
 geompy.addToStudy( O, 'O' )
 geompy.addToStudy( OX, 'OX' )
@@ -144,7 +127,19 @@ geompy.addToStudyInFather( Cut_1, wallTop, 'wallTop' )
 geompy.addToStudyInFather( Cut_1, wallSide, 'wallSide' )
 geompy.addToStudyInFather( Cut_1, outlet, 'outlet' )
 
-
+geompy.ExportSTL(wallGround, "./wallGroundMesh.stl", True, stlsize, False )
+geompy.ExportSTL(inlet, "./inletMesh.stl", True, stlsize, False )
+geompy.ExportSTL(symmetry, "./symmetryMesh.stl", True, stlsize, False )
+geompy.ExportSTL(slipwallTop, "./slipwallTop.stl", True, stlsize, False )
+geompy.ExportSTL(slipwallSide, "./slipwallSide.stl", True, stlsize, False )
+geompy.ExportSTL(wallLegs, "./wallLegs.stl", True, stlsize, False )
+geompy.ExportSTL(wallFront, "./wallFront.stl", True, stlsize, False )
+geompy.ExportSTL(wallUnder, "./wallUnder.stl", True, stlsize, False )
+geompy.ExportSTL(wallSlant, "./wallSlant.stl", True, stlsize, False )
+geompy.ExportSTL(wallBehind, "./wallBehind.stl", True, stlsize, False )
+geompy.ExportSTL(wallTop, "./wallTop.stl", True, stlsize, False )
+geompy.ExportSTL(wallSide, "./wallSide.stl", True, stlsize, False )
+geompy.ExportSTL(outlet, "./outletMesh.stl", True, stlsize, False )
 
 if salome.sg.hasDesktop():
   salome.sg.updateObjBrowser(1)

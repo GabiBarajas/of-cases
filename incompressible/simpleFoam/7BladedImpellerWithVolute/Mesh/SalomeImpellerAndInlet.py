@@ -8,7 +8,6 @@ Created on Wed Sep 12 12:33:27 2012
 import math
 import numpy
 
-
 Beta1=30.0
 Beta2=30.0
 h=20.0
@@ -80,6 +79,9 @@ theStudy = salome.myStudy
 
 import salome_notebook
 notebook = salome_notebook.NoteBook(theStudy)
+
+# STL finenes
+stlsize = 0.1
 
 ###
 ### GEOM component
@@ -232,16 +234,16 @@ def writeBase(filename,r2,b2):
 
 def writeFinal(filename):
     f = open(fileName, 'a')
-    f.write('geompy.ExportBREP(amiImpToInlet, "Impeller/amiImpToInletMesh.brep" )\n')
-    f.write('geompy.ExportBREP(rotatingWallShroud, "Impeller/rotatingWallShroudMesh.brep" )\n')
-    f.write('geompy.ExportBREP(rotatingWallHub, "Impeller/rotatingWallHubMesh.brep" )\n')
-    f.write('geompy.ExportBREP(wallImpeller, "Impeller/wallImpellerMesh.brep" )\n')
-    f.write('geompy.ExportBREP(rotatingWallImpeller, "Impeller/rotatingWallImpellerMesh.brep" )\n')
-    f.write('geompy.ExportBREP(amiImpToVolute, "Impeller/amiImpToVoluteMesh.brep" )\n')
+    f.write('geompy.ExportSTL(amiImpToInlet, "Impeller/amiImpToInletMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(rotatingWallShroud, "Impeller/rotatingWallShroudMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(rotatingWallHub, "Impeller/rotatingWallHubMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(wallImpeller, "Impeller/wallImpellerMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(rotatingWallImpeller, "Impeller/rotatingWallImpellerMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(amiImpToVolute, "Impeller/amiImpToVoluteMesh.stl", True, stlsize, False )\n')
     
-    f.write('geompy.ExportBREP(amiInletToImp, "Inlet/amiInletToImpMesh.brep" )\n')
-    f.write('geompy.ExportBREP(wallInlet, "Inlet/wallInletMesh.brep" )\n')
-    f.write('geompy.ExportBREP(inlet, "Inlet/inletMesh.brep" )\n')
+    f.write('geompy.ExportSTL(amiInletToImp, "Inlet/amiInletToImpMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(wallInlet, "Inlet/wallInletMesh.stl", True, stlsize, False )\n')
+    f.write('geompy.ExportSTL(inlet, "Inlet/inletMesh.stl", True, stlsize, False )\n')
     f.close()
 
 l1=numpy.array(logLine(0))
