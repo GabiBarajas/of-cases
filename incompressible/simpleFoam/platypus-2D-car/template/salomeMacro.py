@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
 
-import math
+import sys
 import salome
-import collections
+import os
 import pickle
 
-## INIT THE SALOME PART
+fpath = os.path.dirname(sys.argv[0])
+
+# INIT THE SALOME PART
 salome.salome_init()
-theStudy = salome.myStudy
+import salome_notebook
+notebook = salome_notebook.NoteBook()
+sys.path.insert(0, fpath)
+
+import GEOM
 from salome.geom import geomBuilder
-geompy = geomBuilder.New(theStudy)
+import math
+import SALOMEDS
+
+geompy = geomBuilder.New()
 
 f = open('salomeInput.pkl', 'rb')
 inputDict = pickle.load(f)
@@ -24,8 +33,6 @@ r6 = inputDict['r6']
 
 # STL finenes
 stlsize = 0.1
-
-geompy = geomBuilder.New(theStudy)
 
 O = geompy.MakeVertex(0, 0, 0)
 OX = geompy.MakeVectorDXDYDZ(1, 0, 0)
@@ -44,11 +51,11 @@ sk.addSegmentAbsolute(242.000000, 0.000000)
 sk.close()
 Sketch_1 = sk.wire(geomObj_1)
 Fillet_1D_1 = geompy.MakeFillet1D(Sketch_1, r1, [4])
-Fillet_1D_2 = geompy.MakeFillet1D(Fillet_1D_1, r2, [8])
-Fillet_1D_3 = geompy.MakeFillet1D(Fillet_1D_2, r3, [12])
-Fillet_1D_4 = geompy.MakeFillet1D(Fillet_1D_3, r4, [16])
-Fillet_1D_5 = geompy.MakeFillet1D(Fillet_1D_4, r5, [20])
-Fillet_1D_6 = geompy.MakeFillet1D(Fillet_1D_5, r6, [24])
+Fillet_1D_2 = geompy.MakeFillet1D(Fillet_1D_1, r2, [6])
+Fillet_1D_3 = geompy.MakeFillet1D(Fillet_1D_2, r3, [6])
+Fillet_1D_4 = geompy.MakeFillet1D(Fillet_1D_3, r4, [6])
+Fillet_1D_5 = geompy.MakeFillet1D(Fillet_1D_4, r5, [6])
+Fillet_1D_6 = geompy.MakeFillet1D(Fillet_1D_5, r6, [6])
 Extrusion_1 = geompy.MakePrismVecH(Fillet_1D_6, OZ, 5)
 geomObj_2 = geompy.MakeMarker(0, 0, 0, 1, 0, 0, 0, 1, 0)
 sk = geompy.Sketcher2D()
@@ -118,7 +125,6 @@ geompy.addToStudyInFather( Extrusion_2, inlet, 'inlet' )
 geompy.addToStudyInFather( Extrusion_2, slipTop, 'slipTop' )
 geompy.addToStudyInFather( Extrusion_2, outlet, 'outlet' )
 geompy.addToStudyInFather( Extrusion_2, wallGround, 'wallGround' )
-
 
 if salome.sg.hasDesktop():
   salome.sg.updateObjBrowser(1)

@@ -16,9 +16,7 @@ import salome
 # Extension modules
 # =============================================================================
 #from pyOpt import *
-from pyOpt import Optimization
-from pyOpt import NSGA2
-
+from platypus import NSGAII, Problem, Real
 
 CASECOUNT=1
 
@@ -27,7 +25,7 @@ def fixBc(replaceDict):
     for line in 'constant/polyMesh/boundary':
         words = line.split()
         if wallObstacle in words:
-            print line
+            print(line)
 
 
 def replace(fileIn,searchBC,subst):
@@ -45,7 +43,7 @@ def replace(fileIn,searchBC,subst):
     # Using mode 'w' truncates the file.
     file_handle = open(fileIn, 'w')
     file_handle.write(file_string)
-    file_handle.close()com
+    file_handle.close()
 
 
 
@@ -53,7 +51,7 @@ def replace(fileIn,searchBC,subst):
 # 
 # =============================================================================
 def objfunc(x):
-    print x
+    print(x)
     
     global CASECOUNT
     
@@ -62,11 +60,11 @@ def objfunc(x):
     caseDir='workdir_'+str(CASECOUNT)
     
     if os.path.exists(caseDir):
-        print 'Case Folder already exists, removing'
+        print('Case Folder already exists, removing')
         rmdirCommand='rm -rf '+caseDir
         subprocess.call(rmdirCommand,shell=True)
         
-    print caseDir
+    print(caseDir)
     mkdirCommand='mkdir -p '+caseDir
     subprocess.call(mkdirCommand,shell=True)
     copyTemplateCase='cp -r ../template/* '+caseDir+'/'
@@ -93,20 +91,18 @@ def objfunc(x):
     subprocess.call(runSimul,shell=True)
 #    
     try:
-        f = np.mean(np.loadtxt('postProcessing/forceCoeffs/0/forceCoeffs.dat',skiprows=10,usecols=(2,),unpack=True)[:-10])
-        print "drag =",f
-        fail = 0
-        g=[]
+        f = np.mean(np.loadtxt('./postProcessing/forceCoeffs/0/coefficient.dat',comments='#',usecols=(1,),unpack=True)[:-10])
+        print('drag =',f)
     except:
         f=0
-        g=[]
-        fail=1
+        print('Case Failed')
+
 
     os.chdir('../..')
     
     CASECOUNT+=1
         
-    return f,g,fail
+    return [f]
     
 
 # =============================================================================
@@ -114,24 +110,26 @@ def objfunc(x):
 # =============================================================================
 
 # Instantiate Optimization Problem 
-opt_prob = Optimization('Minimize Drag',objfunc)
-opt_prob.addVar('x1','c',lower=1.,upper=25.,value=12.0)
-opt_prob.addVar('x2','c',lower=1.,upper=30.,value=15.0)
-opt_prob.addVar('x3','c',lower=1.,upper=30.,value=15.0)
-opt_prob.addVar('x4','c',lower=1.,upper=25.,value=12.0)
-opt_prob.addVar('x5','c',lower=1.,upper=25.,value=12.0)
-opt_prob.addVar('x6','c',lower=1.,upper=13.,value=6.0)
-opt_prob.addObj('f')
-#opt_prob.addCon('g','i')
-print opt_prob
+# Instantiate Optimization Problem 
+problem = Problem(6, 1)
+problem.directions[0] = Problem.MINIMIZE  
+problem.types[0] = Real(1., 25.)
+problem.types[1] = Real(1., 30.)
+problem.types[2] = Real(1., 30.)
+problem.types[3] = Real(1., 25.)
+problem.types[4] = Real(1., 25.)
+problem.types[5] = Real(1., 13.)
+
+problem.function = objfunc
+
 
 mkdirCommand='mkdir -p workDir'
 subprocess.call(mkdirCommand,shell=True)
 
-# Instantiate Optimizer (NSGA2) & Solve Problem
-nsga2 = NSGA2()
-nsga2.setOption('PopSize',8)
-nsga2.setOption('maxGen',5)
-nsga2.setOption('PrintOut',2)
-nsga2(opt_prob,store_hst=True)
-print opt_prob.solution(0)
+algorithm = NSGAII(problem, population_size=8, log_frequency=1)
+
+#algorithm.initialize()
+algorithm.run(5)
+
+for solution in algorithm.result:
+    print(solution.objectives)
