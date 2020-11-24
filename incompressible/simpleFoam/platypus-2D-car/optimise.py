@@ -140,7 +140,7 @@ problem.function = objfunc
 algorithm = NSGAII(problem, population_size=8, log_frequency=1)
 
 #algorithm.initialize()
-algorithm.run(5)
+algorithm.run(40)
 
 for solution in algorithm.result:
     print(solution.objectives)
