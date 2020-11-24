@@ -12,7 +12,7 @@ def readForces(fileName,skip):
     lines = f.readlines()
     f.close()
 
-    x,time,xData,yData,zData=[],[],[],[],[]
+    x=[]
 
     for i in lines: #:Strip all (), , and [] from the file
         if '#' in i:
@@ -23,22 +23,22 @@ def readForces(fileName,skip):
 
     del x[0:skip]   #: Delete the values below the skip defined in the gui
 
-    for i in x:
-        data=np.fromstring(i, dtype=float, sep=',')
-        time.append(data[0])             
-        xData.append(data[1]+data[4])
-        yData.append(data[2]+data[5])
-        zData.append(data[3]+data[6])
+    data = np.empty((0,4))
 
-    return [time,xData,yData,zData]
+    for i in x:
+        d=np.fromstring(i, dtype=float, sep=',')
+        #print(d)
+        data = np.append(data,np.array([[d[0],d[1],d[2],d[3]]]),axis=0)
+
+    return data
 
 # Data for plotting
-f = readForces('./postProcessing/forces/0/force_0.dat',10)
-m = readForces('./postProcessing/forces/0/moment_0.dat',10)
+f = readForces('./postProcessing/forces/0/force_0.dat',400)
+m = readForces('./postProcessing/forces/0/moment_0.dat',400)
 
 fig, ax = plt.subplots()
-ax.plot(f[0] , f[2], label='Force (N) in y')
-ax.plot(m[0] , m[2], label='Moment (Nm) around y')
+ax.plot(f[:,0] , f[:,2], label='Force (N) in y')
+ax.plot(m[:,0] , m[:,2], label='Moment (Nm) around y')
 
 ax.set(xlabel='Itteration (-)', ylabel='Force and Moment (-)',
        title='Force and moment plot')
