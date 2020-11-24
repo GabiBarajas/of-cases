@@ -6,7 +6,7 @@
 # Standard Python modules
 # =============================================================================
 import os, sys, time, subprocess, re
-import pdb
+import csv
 
 import numpy as np
 
@@ -93,10 +93,12 @@ def objfunc(x):
     try:
         f = np.mean(np.loadtxt('./postProcessing/forceCoeffs/0/coefficient.dat',comments='#',usecols=(1,),unpack=True)[:-10])
         print('drag =',f)
+        with open('../../'+csvfi,'a') as csvfile:
+            csvf = csv.writer(csvfile, delimiter=';', lineterminator='\n')
+            csvf.writerow([caseDir, x[0], x[1], x[2], x[3], x[4], x[5], f])
     except:
         f=0
         print('Case Failed')
-
 
     os.chdir('../..')
     
@@ -109,7 +111,20 @@ def objfunc(x):
 # 
 # =============================================================================
 
-# Instantiate Optimization Problem 
+# House keeping folder and files
+csvfi = 'outputdata.csv'
+
+if os.path.isfile(csvfi):
+    pass
+else:
+    with open(csvfi,'w') as csvfile:
+        csvf = csv.writer(csvfile, delimiter=';', lineterminator='\n')
+        csvf.writerow(['workingfolder', 'r1', 'r2', 'r3', 'r4','r5', 'r6', 'Drag Cd (-)'])
+
+mkdirCommand='mkdir -p workDir'
+subprocess.call(mkdirCommand,shell=True)
+
+
 # Instantiate Optimization Problem 
 problem = Problem(6, 1)
 problem.directions[0] = Problem.MINIMIZE  
@@ -121,10 +136,6 @@ problem.types[4] = Real(1., 25.)
 problem.types[5] = Real(1., 13.)
 
 problem.function = objfunc
-
-
-mkdirCommand='mkdir -p workDir'
-subprocess.call(mkdirCommand,shell=True)
 
 algorithm = NSGAII(problem, population_size=8, log_frequency=1)
 
