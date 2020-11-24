@@ -50,7 +50,7 @@ def findCircleFit(p1x, p1y, p2x, p2y, p3x, p3y):
 #    print sigma
     
     if alpha==0:
-        print "points are collinear, alpha set to 10^-30"
+        print("points are collinear, alpha set to 10^-30")
         alpha=10^-30
     
     x0=beta/(2.0*alpha)
@@ -110,7 +110,7 @@ while tongueArea <= (outletArea*outFactor*0.98) or tongueArea >= (outletArea*out
 
         
 
-print "GrowthConst= "+str(GrowthConst)
+print("GrowthConst= "+str(GrowthConst))
 
 midSpan=[]
 topSpan=[]
@@ -152,25 +152,23 @@ import sys
 import salome
 import os
 
+fpath = os.path.dirname(sys.argv[0])
+
+# INIT THE SALOME PART
 salome.salome_init()
-theStudy = salome.myStudy
-
 import salome_notebook
-notebook = salome_notebook.NoteBook(theStudy)
-
-# STL finenes
-stlsize = 0.1
-
-###
-### GEOM component
-###
+notebook = salome_notebook.NoteBook()
+sys.path.insert(0, fpath)
 
 import GEOM
 from salome.geom import geomBuilder
 import math
 import SALOMEDS
 
-geompy = geomBuilder.New(theStudy)
+geompy = geomBuilder.New()
+
+# STL finenes
+stlsize = 0.1
 
 
 """)

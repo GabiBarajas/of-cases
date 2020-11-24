@@ -18,8 +18,8 @@ nBlades=7
 reverse=-1
 r1=18.0
 r2=70.0    #r2+1.5mm
-extraRin=-2#round((b2/1.0),2)
-extraRout=0#-5.
+extraRin=-2 #round((b2/1.0),2)
+extraRout=0 #-5.
 fileName='./impellerInlet_importSalome.py'
 
 
@@ -74,25 +74,23 @@ import sys
 import salome
 import os
 
+fpath = os.path.dirname(sys.argv[0])
+
+# INIT THE SALOME PART
 salome.salome_init()
-theStudy = salome.myStudy
-
 import salome_notebook
-notebook = salome_notebook.NoteBook(theStudy)
-
-# STL finenes
-stlsize = 0.1
-
-###
-### GEOM component
-###
+notebook = salome_notebook.NoteBook()
+sys.path.insert(0, fpath)
 
 import GEOM
 from salome.geom import geomBuilder
 import math
 import SALOMEDS
 
-geompy = geomBuilder.New(theStudy)
+geompy = geomBuilder.New()
+
+# STL finenes
+stlsize = 0.1
 
 
 """)
@@ -199,17 +197,17 @@ def writeBase(filename,r2,b2):
     f.write('geompy.addToStudy( Fuse_1, "Fuse_1" )\n')
     
     f.write('amiImpToInlet = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
-    f.write('geompy.UnionIDs(amiImpToInlet, [3])\n')
+    f.write('geompy.UnionIDs(amiImpToInlet, [10])\n')
     f.write('rotatingWallShroud = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
     f.write('geompy.UnionIDs(rotatingWallShroud, [12])\n')
     f.write('rotatingWallHub = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
-    f.write('geompy.UnionIDs(rotatingWallHub, [426, 443])\n')
+    f.write('geompy.UnionIDs(rotatingWallHub, [377, 394])\n')
     f.write('wallImpeller = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
-    f.write('geompy.UnionIDs(wallImpeller, [7, 440, 136])\n')
+    f.write('geompy.UnionIDs(wallImpeller, [122, 3, 391])\n')
     f.write('rotatingWallImpeller = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
-    f.write('geompy.UnionIDs(rotatingWallImpeller, [141, 148, 153, 158, 163, 168, 173, 178, 181, 188, 193, 198, 203, 208, 213, 218, 221, 228, 233, 238, 243, 248, 253, 258, 261, 268, 273, 278, 283, 288, 293, 298, 301, 308, 313, 318, 323, 328, 333, 338, 341, 348, 353, 358, 363, 368, 373, 378, 381, 388, 393, 398, 403, 408, 413, 418])\n')
+    f.write('geompy.UnionIDs(rotatingWallImpeller, [349, 299, 179, 144, 149, 279, 334, 244, 302, 274, 239, 169, 229, 162, 314, 319, 359, 209, 224, 194, 309, 289, 259, 189, 369, 329, 324, 249, 344, 204, 264, 337, 139, 154, 364, 219, 294, 254, 159, 174, 134, 127, 284, 197, 184, 214, 267, 232, 354])\n')
     f.write('amiImpToVolute = geompy.CreateGroup(Fuse_1, geompy.ShapeType["FACE"])\n')
-    f.write('geompy.UnionIDs(amiImpToVolute, [421])\n')
+    f.write('geompy.UnionIDs(amiImpToVolute, [372])\n')
     
     f.write('geompy.addToStudyInFather( Fuse_1, amiImpToInlet, "amiImpToInlet" )\n')
     f.write('geompy.addToStudyInFather( Fuse_1, rotatingWallShroud, "rotatingWallShroud" )\n')

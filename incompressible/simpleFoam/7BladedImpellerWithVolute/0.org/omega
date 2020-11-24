@@ -23,7 +23,7 @@ boundaryField
     inlet
     {
         type            turbulentMixingLengthDissipationRateInlet;
-	mixingLength    0.001;
+	    mixingLength    0.001;
         value           uniform 10.0;
     }
 
@@ -36,13 +36,13 @@ boundaryField
 
     walls
     {
-	type            omegaWallFunction;
+	    type            omegaWallFunction;
         value           uniform 10.0;
     }
     
     rotatingWall
     {
-	type            omegaWallFunction;
+	    type            omegaWallFunction;
         value           uniform 10.0;
     }
 

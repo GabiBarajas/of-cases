@@ -23,7 +23,7 @@ boundaryField
     inlet
     {
         type            turbulentIntensityKineticEnergyInlet;
-	intensity       0.05;
+	    intensity       0.05;
         value           uniform 0.02;
     }
 
@@ -36,13 +36,13 @@ boundaryField
     
     walls
     {
-	type            kqRWallFunction;
+	    type            kqRWallFunction;
         value           uniform 0;
     }
     
     rotatingWall
     {
-	type            kqRWallFunction;
+	    type            kqRWallFunction;
         value           uniform 0;
     }
 

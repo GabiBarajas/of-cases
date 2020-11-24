@@ -22,13 +22,13 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         1000;
+endTime         1400;
 
 deltaT          1;
 
 writeControl    timeStep;
 
-writeInterval   50;
+writeInterval   200;
 
 purgeWrite      0;
 
@@ -43,5 +43,22 @@ timeFormat      general;
 timePrecision   6;
 
 runTimeModifiable true;
+
+functions
+{
+    #include "forces"
+    pressureDifferencePatch
+    {
+        patch1      inlet;
+        patch2      outlet;
+
+        #includeEtc "caseDicts/postProcessing/pressure/pressureDifferencePatch.cfg"
+    }
+    flowRatePatch
+    {
+        name        outlet;
+        #includeEtc "caseDicts/postProcessing/flowRate/flowRatePatch.cfg"
+    } 
+}
 
 // ************************************************************************* //

@@ -23,7 +23,22 @@ boundaryField
     inlet
     {
         type            flowRateInletVelocity;
-	volumetricFlowRate 0.001;
+	    volumetricFlowRate table
+        (
+            ( 0	      0.0002 ) 
+            ( 200     0.0002 )
+            ( 201     0.0004 )
+            ( 400     0.0004 )
+            ( 401     0.0006 )
+            ( 600     0.0006 )
+            ( 601     0.0008 )
+            ( 800     0.0008 )
+            ( 801     0.001  ) 
+            ( 1000    0.001  ) 
+            ( 1001    0.0012 )
+            ( 1200    0.0012 )
+            ( 1201    0.0014 )
+        );
         value           uniform (0 0 -1);
     }
 
@@ -35,12 +50,12 @@ boundaryField
 
     walls
     {
-	type            noSlip;
+	    type            noSlip;
     }
     
     rotatingWall
     {
-	type            noSlip;
+	    type            noSlip;
     }
 
     "ami.*"
